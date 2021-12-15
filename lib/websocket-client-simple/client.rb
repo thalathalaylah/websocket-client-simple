@@ -28,6 +28,7 @@ module WebSocket
             ctx.cert_store = cert_store
             @socket = ::OpenSSL::SSL::SSLSocket.new(@socket, ctx)
             @socket.connect
+            @socket.post_connection_check(uri.host)
           end
           @handshake = ::WebSocket::Handshake::Client.new :url => url, :headers => options[:headers]
           @handshaked = false
